@@ -1,34 +1,41 @@
-/* Основний стиль */
+/* --- Загальний стиль --- */
 body{
     margin:0;
     font-family:Consolas, monospace;
     background:black;
     color:white;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    min-height:100vh;
-    overflow-x:hidden;
+    overflow:hidden;
     position:relative;
 }
 
+/* --- Canvas поверх усього фону --- */
+#matrix{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0; /* фон позаду */
+}
+
+/* --- Квестова панель поверх матриці --- */
 .container{
+    position:relative;
+    z-index:1; /* на передньому плані */
     width:90%;
     max-width:620px;
     padding:20px;
-    margin-top:20px;
-    background:rgba(2,6,23,0.85);
-    border:1px solid rgba(56,189,248,.4);
+    margin:20px auto;
+    background:rgba(0,0,0,0.75); /* напівпрозорий фон */
     border-radius:16px;
     text-align:center;
-    z-index:1;
-    position:relative;
+    color:white;
+    box-shadow:0 0 20px #0F0;
 }
 
 h1{
     color:#38bdf8;
-    text-shadow:0 0 15px #38bdf8;
+    text-shadow:0 0 10px #38bdf8;
 }
 
 input{
@@ -38,7 +45,7 @@ input{
     font-size:18px;
     text-align:center;
     background:black;
-    border:2px solid rgba(56,189,248,.4);
+    border:2px solid #38bdf8;
     border-radius:8px;
     color:#38bdf8;
 }
@@ -63,7 +70,7 @@ button{
     position:relative;
     width:100%;
     height:350px;
-    background:rgba(15,23,42,0.7);
+    background:rgba(15,23,42,0.5);
     border:2px solid #38bdf8;
     border-radius:12px;
     overflow:hidden;
@@ -85,7 +92,6 @@ button{
     box-shadow:0 0 10px #4ade80;
 }
 
-/* Пройдені факультети */
 .passed{
     background:red !important;
     text-decoration:line-through;
