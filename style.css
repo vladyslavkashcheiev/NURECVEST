@@ -85,7 +85,7 @@ button{
     cursor:pointer;
     transition:0.3s;
 
-    background-image: url('PRAPOR_NURE.png'); /* фон прапора */
+    background-image: url('PRAPOR_NURE.JPG'); /* фон прапора */
     background-size: cover;
     background-position: center;
     text-shadow: 0 0 3px black; /* щоб текст був читабельний */
@@ -127,3 +127,4 @@ button{
     button{width:80%; font-size:16px;}
     .map{height:250px;}
 }
+
