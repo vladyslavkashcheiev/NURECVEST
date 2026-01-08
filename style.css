@@ -1,0 +1,117 @@
+/* Основний стиль */
+body{
+    margin:0;
+    font-family:Consolas, monospace;
+    background:black;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+}
+
+.container{
+    width:90%;
+    max-width:620px;
+    padding:20px;
+    margin-top:20px;
+    background:rgba(2,6,23,0.85);
+    border:1px solid rgba(56,189,248,.4);
+    border-radius:16px;
+    text-align:center;
+    z-index:1;
+    position:relative;
+}
+
+h1{
+    color:#38bdf8;
+    text-shadow:0 0 15px #38bdf8;
+}
+
+input{
+    width:80%;
+    padding:12px;
+    margin-top:10px;
+    font-size:18px;
+    text-align:center;
+    background:black;
+    border:2px solid rgba(56,189,248,.4);
+    border-radius:8px;
+    color:#38bdf8;
+}
+
+button{
+    width:60%;
+    padding:12px;
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.ok{color:#4ade80;}
+.bad{color:#f87171;}
+
+.map{
+    margin-top:20px;
+    position:relative;
+    width:100%;
+    height:350px;
+    background:rgba(15,23,42,0.7);
+    border:2px solid #38bdf8;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.faculty{
+    position:absolute;
+    padding:5px 8px;
+    border-radius:6px;
+    background:rgba(56,189,248,0.4);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.active{
+    background:#4ade80 !important;
+    font-weight:bold;
+    box-shadow:0 0 10px #4ade80;
+}
+
+/* Пройдені факультети */
+.passed{
+    background:red !important;
+    text-decoration:line-through;
+    color:white !important;
+}
+
+#marker{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:#f87171;
+    border-radius:50%;
+    top:0;
+    left:0;
+    transform:translate(-50%,-50%);
+    transition:all 1s ease;
+}
+
+#finalCodeContainer{
+    margin-top:20px;
+    display:none;
+}
+
+/* Адаптивність для смартфонів */
+@media (max-width:480px){
+    input{width:95%; font-size:16px;}
+    button{width:80%; font-size:16px;}
+    .map{height:250px;}
+}
