@@ -76,26 +76,32 @@ button{
     overflow:hidden;
 }
 
+/* --- Факультети з прапором НУРЕ --- */
 .faculty{
     position:absolute;
     padding:5px 8px;
     border-radius:6px;
-    background:rgba(56,189,248,0.4);
     color:white;
     cursor:pointer;
     transition:0.3s;
+
+    background-image: url('PRAPOR_NURE.png'); /* фон прапора */
+    background-size: cover;
+    background-position: center;
+    text-shadow: 0 0 3px black; /* щоб текст був читабельний */
 }
 
 .active{
-    background:#4ade80 !important;
-    font-weight:bold;
     box-shadow:0 0 10px #4ade80;
+    font-weight:bold;
 }
 
+/* Пройдені факультети */
 .passed{
     background:red !important;
     text-decoration:line-through;
     color:white !important;
+    background-image:none !important; /* червоний перекриває прапор */
 }
 
 #marker{
