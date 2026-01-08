@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Код ХНУРЕ | Квест з маршрутом</title>
+<style>
+body{
+    margin:0;
+    font-family:Consolas, monospace;
+    background:#020617;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    min-height:100vh;
+}
+.container{
+    width:620px;
+    padding:20px;
+    margin-top:20px;
+    background:rgba(2,6,23,0.9);
+    border:1px solid rgba(56,189,248,.4);
+    border-radius:16px;
+    text-align:center;
+}
+h1{
+    color:#38bdf8;
+    text-shadow:0 0 15px #38bdf8;
+}
+input{
+    width:80%;
+    padding:12px;
+    margin-top:10px;
+    font-size:18px;
+    text-align:center;
+    background:black;
+    border:2px solid rgba(56,189,248,.4);
+    border-radius:8px;
+    color:#38bdf8;
+}
+button{
+    width:60%;
+    padding:12px;
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+.ok{color:#4ade80;}
+.bad{color:#f87171;}
+.map{
+    margin-top:20px;
+    position:relative;
+    width:100%;
+    height:350px;
+    background:#0f172a;
+    border:2px solid #38bdf8;
+    border-radius:12px;
+}
+.faculty{
+    position:absolute;
+    padding:5px 8px;
+    border-radius:6px;
+    background:rgba(56,189,248,0.4);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+.active{
+    background:#4ade80 !important;
+    font-weight:bold;
+    box-shadow:0 0 10px #4ade80;
+}
+#marker{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:#f87171;
+    border-radius:50%;
+    top:0;
+    left:0;
+    transform:translate(-50%,-50%);
+    transition:all 1s ease;
+}
+#finalCodeContainer{
+    margin-top:20px;
+    display:none;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>🔐 КОД ХНУРЕ</h1>
+<p id="task">Введіть стартовий код:</p>
+<input id="code" placeholder="Введіть код">
+<br>
+<button onclick="check()">ПІДТВЕРДИТИ</button>
+<div id="result"></div>
+
+<div class="map" id="map">
+    <div class="faculty" id="fac1" style="top:20px; left:50px;">КН</div>
+    <div class="faculty" id="fac2" style="top:70px; left:200px;">КІУ</div>
+    <div class="faculty" id="fac3" style="top:140px; left:100px;">АКТ</div>
+    <div class="faculty" id="fac4" style="top:200px; left:250px;">ІТМ</div>
+    <div class="faculty" id="fac5" style="top:80px; left:400px;">ІК</div>
+    <div class="faculty" id="fac6" style="top:180px; left:400px;">ЕЛБІ</div>
+    <div class="faculty" id="fac7" style="top:250px; left:150px;">ІРТЗІ</div>
+    <div id="marker"></div>
+</div>
+
+<div id="finalCodeContainer">
+    <p>🎉 Квест пройдено! Введіть фінальний код:</p>
+    <input id="finalCode" placeholder="Введіть фінальний код">
+    <br>
+    <button onclick="checkFinal()">ЗАВЕРШИТИ КВЕСТ</button>
+    <div id="finalResult"></div>
+</div>
+
+</div>
+
+<script>
+// Послідовність факультетів з кодами
+const steps=[
+{code:"NURE",text:"🎯 Початок квесту. Ідіть на КН, ауд.214",map:"fac1"},
+{code:"KN214",text:"✅ КН активовано. Далі КІУ, ауд.103",map:"fac2"},
+{code:"KIU103",text:"✅ КІУ активовано. Далі АКТ, ауд.312",map:"fac3"},
+{code:"AKT312",text:"✅ АКТ активовано. Далі ІТМ, ауд.221",map:"fac4"},
+{code:"IATM221",text:"✅ ІТМ активовано. Далі ІК, ауд.405",map:"fac5"},
+{code:"INFO405",text:"✅ ІК активовано. Далі ЕЛБІ, ауд.118",map:"fac6"},
+{code:"EBI118",text:"✅ ЕЛБІ активовано. Далі ІРТЗІ, ауд.501",map:"fac7"},
+{code:"IRT501",text:"🎉 ВСІ ФАКУЛЬТЕТИ пройдено!"}
+];
+
+let step=0;
+const marker=document.getElementById("marker");
+
+function moveMarker(facId){
+    const fac=document.getElementById(facId);
+    const rect=fac.getBoundingClientRect();
+    const mapRect=document.getElementById("map").getBoundingClientRect();
+    marker.style.left=(rect.left-mapRect.left+rect.width/2)+"px";
+    marker.style.top=(rect.top-mapRect.top+rect.height/2)+"px";
+}
+
+function check(){
+    const input=document.getElementById("code").value.trim();
+    const res=document.getElementById("result");
+    const task=document.getElementById("task");
+    if(input===steps[step].code){
+        res.innerHTML="<p class='ok'>"+steps[step].text+"</p>";
+        if(steps[step].map){
+            moveMarker(steps[step].map);
+            document.querySelectorAll(".faculty").forEach(f=>f.classList.remove("active"));
+            document.getElementById(steps[step].map).classList.add("active");
+        }
+        step++;
+        document.getElementById("code").value="";
+        if(step<steps.length){
+            task.innerText="Введіть код, отриманий на факультеті:";
+        } else {
+            task.innerText="Квест завершено! Введіть фінальний код:";
+            document.querySelector(".map").style.opacity=0.5;
+            document.getElementById("finalCodeContainer").style.display="block";
+        }
+    }else{
+        res.innerHTML="<p class='bad'>❌ Невірний код</p>";
+    }
+}
+
+const finalCode="HNURE-2026";
+
+function checkFinal(){
+    const input=document.getElementById("finalCode").value.trim();
+    const res=document.getElementById("finalResult");
+    if(input===finalCode){
+        res.innerHTML="<p class='ok'>🎉 Фінальний код правильний! Квест завершено! Вітаємо!</p>";
+    } else {
+        res.innerHTML="<p class='bad'>❌ Невірний фінальний код</p>";
+    }
+}
+</script>
+
+</body>
+</html>
