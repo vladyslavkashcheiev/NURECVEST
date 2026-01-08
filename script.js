@@ -1,4 +1,4 @@
-// Послідовність факультетів з кодами
+// --- Логіка квесту ---
 const steps=[
 {code:"NURE",text:"🎯 Початок квесту. Ідіть на КН, ауд.214",map:"fac1"},
 {code:"KN214",text:"✅ КН активовано. Далі КІУ, ауд.103",map:"fac2"},
@@ -61,20 +61,18 @@ function checkFinal(){
     }
 }
 
-// --- Матриця з факультетами ---
+// --- Матриця на фоні ---
 const canvas=document.getElementById("matrix");
 const ctx=canvas.getContext("2d");
 
 let width=canvas.width=window.innerWidth;
 let height=canvas.height=window.innerHeight;
 
-// Масив "рядків" для матриці
 const fontSize=20;
 const columns=Math.floor(width/fontSize);
 const drops=[];
 for(let x=0;x<columns;x++) drops[x]=Math.floor(Math.random()*height/fontSize);
 
-// Факультети, які будуть "літерами" матриці
 const facultyNames=["КН","КІУ","АКТ","ІТМ","ІК","ЕЛБІ","ІРТЗІ"];
 
 function drawMatrix(){
@@ -84,7 +82,6 @@ function drawMatrix(){
     ctx.font=fontSize+"px monospace";
     
     for(let i=0;i<drops.length;i++){
-        // Вибираємо випадковий факультет для кожної позиції
         const text=facultyNames[Math.floor(Math.random()*facultyNames.length)];
         ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
